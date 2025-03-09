@@ -650,7 +650,7 @@ function BatchMint() {
                     File with Addresses (.xlsx)
                 </label>
                 {fileError && <p className={styles.errorText}>{fileError}</p>}
-                {addressCount > 0 && <p className={styles.successText}>Количество адресов: {addressCount}</p>}
+                {addressCount > 0 && <p className={styles.successText}>Addresses Found: {addressCount}</p>}
             </div>
 
             <label>Collection Address:</label>

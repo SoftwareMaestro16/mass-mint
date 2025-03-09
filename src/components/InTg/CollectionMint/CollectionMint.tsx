@@ -108,7 +108,7 @@ const CollectionMint = () => {
             <textarea name="description" value={formData.description} onChange={handleChange} />
             {errors.description && <p className={styles.error}>{errors.description}</p>}
 
-            <label>Media Links (Max 5 Links):</label>
+            <label>Media Links (Max 8 Links):</label>
             {formData.social_links.map((link, index) => (
                 <div key={index} className={styles.socialLink}>
                     <input
@@ -116,21 +116,21 @@ const CollectionMint = () => {
                         name="social_links"
                         value={link}
                         onChange={(e) => handleChange(e, index)}
-                        placeholder="Enter URL"
+                        placeholder="Enter URL (Telegram, Twitter...)"
                     />
                     <button className={styles.delButton} onClick={() => removeSocialLink(index)}>❌</button>
                 </div>
             ))}
-            {formData.social_links.length < 5 && (
+            {formData.social_links.length < 8 && (
                 <button type="button" onClick={addSocialLink}>➕ Add Link</button>
             )}
 
             <label>Image URL:</label>
-            <input type="url" name="image" placeholder="Enter URL" value={formData.image} onChange={handleChange} />
+            <input type="url" name="image" placeholder="https://example.com/image1.jpg" value={formData.image} onChange={handleChange} />
             {errors.image && <p className={styles.error}>{errors.image}</p>}
 
             <label>Banner URL:</label>
-            <input type="url" name="cover_image" placeholder="Enter URL" value={formData.cover_image} onChange={handleChange} />
+            <input type="url" name="cover_image" placeholder="https://example.com/image2.jpg" value={formData.cover_image} onChange={handleChange} />
             {errors.cover_image && <p className={styles.error}>{errors.cover_image}</p>}
 
             <label>Select Collection Type:</label>
