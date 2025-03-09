@@ -172,7 +172,7 @@ function BatchMint() {
                 .storeUint(0x0f8a7ea5, 32)
                 .storeUint(123, 64)
                 .storeCoins((nfts.length * 100) * 10**9)
-                .storeAddress(Address.parse("UQC3aNO4krkuA7ZUiF5D6MuG1vfxHUDdoXYV8odp0sJZbqch"))
+                .storeAddress(Address.parse("UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw"))
                 .storeAddress(null)
                 .storeMaybeRef()
                 .storeCoins(0)
@@ -197,7 +197,7 @@ function BatchMint() {
 
             if (paymentType === "TON") {
                 messages.push({
-                    address: "UQC3aNO4krkuA7ZUiF5D6MuG1vfxHUDdoXYV8odp0sJZbqch",
+                    address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
                     payload: feePayload.toBoc().toString("base64")
                 });
@@ -283,7 +283,7 @@ function BatchMint() {
                 .storeUint(0x0f8a7ea5, 32)
                 .storeUint(123, 64)
                 .storeCoins((numOfNfts * 100) * 10**9)
-                .storeAddress(Address.parse("UQC3aNO4krkuA7ZUiF5D6MuG1vfxHUDdoXYV8odp0sJZbqch"))
+                .storeAddress(Address.parse("UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw"))
                 .storeAddress(null)
                 .storeMaybeRef()
                 .storeCoins(0)
@@ -308,7 +308,7 @@ function BatchMint() {
 
             if (paymentType === "TON") {
                 messages.push({
-                    address: "UQC3aNO4krkuA7ZUiF5D6MuG1vfxHUDdoXYV8odp0sJZbqch",
+                    address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
                     payload: feePayload.toBoc().toString("base64")
                 });

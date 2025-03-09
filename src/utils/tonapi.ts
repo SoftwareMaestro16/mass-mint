@@ -1,4 +1,5 @@
 import {Api, HttpClient} from "@ton-api/client";
+import { SIMPLE_COIN_ADDRESS } from "./constants";
 
 const httpClient = new HttpClient({
     baseUrl: 'https://tonapi.io',
