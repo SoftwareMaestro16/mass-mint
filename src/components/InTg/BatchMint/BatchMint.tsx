@@ -647,7 +647,7 @@ function BatchMint() {
             <div className={styles.fileUpload}>
                 <label className={styles.fileLabel}>
                     <input type="file" accept=".xlsx" onChange={handleFileUpload} />
-                    Выберите Excel файл (.xlsx)
+                    File with Addresses (.xlsx)
                 </label>
                 {fileError && <p className={styles.errorText}>{fileError}</p>}
                 {addressCount > 0 && <p className={styles.successText}>Количество адресов: {addressCount}</p>}
