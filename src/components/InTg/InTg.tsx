@@ -5,7 +5,7 @@ import Buttons from "./Buttons/Buttons";
 import Footer from "./Footer/Footer";
 import Media from "./Media/Media";
 import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-import { Address, beginCell, toNano } from "@ton/core";
+import { Address, beginCell } from "@ton/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ function InTg() {
     const wallet = useTonWallet();
     const [tonConnectUi] = useTonConnectUI();
     const [tonBalance, setTonBalance] = useState(null);
-    const [scBalance, setScBalance] = useState(null);
+    const [, setScBalance] = useState(null);
 
     useEffect(() => {
         const tonUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn';
