@@ -614,7 +614,7 @@ function BatchMint() {
                         placeholder="https://example.com/video.mp4"
                     />
 
-                    <label>Атрибуты:</label>
+                    <label>Attributes:</label>
                     {nft.attributes.map((attr, attrIndex) => (
                         <div key={attrIndex} className={styles.attributeBlock}>
                             <input
@@ -632,7 +632,7 @@ function BatchMint() {
                         </div>
                     ))}
 
-                    {nft.attributes.length < 6 && (
+                    {nft.attributes.length < 10 && (
                         <button onClick={() => addAttribute(nftIndex)}>Add Attribute</button>
                     )}
                     {nft.attributes.length > 1 && (
