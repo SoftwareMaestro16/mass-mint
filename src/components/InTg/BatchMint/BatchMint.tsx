@@ -595,7 +595,7 @@ function BatchMint() {
                     <textarea
                         value={nft.description}
                         onChange={(e) => updateNFT(nftIndex, "description", e.target.value)}
-                        maxLength={300}
+                        maxLength={51}
                     />
 
                     <label>Image URL:</label>
