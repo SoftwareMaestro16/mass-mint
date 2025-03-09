@@ -591,7 +591,7 @@ function BatchMint() {
                         className={nft.name.trim() ? "" : styles.errorInput}
                     />
 
-                    <label>Description:</label>
+                    <label>Description (Max 51 Words):</label>
                     <textarea
                         value={nft.description}
                         onChange={(e) => updateNFT(nftIndex, "description", e.target.value)}

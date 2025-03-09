@@ -105,7 +105,7 @@ const CollectionMint = () => {
             {errors.name && <p className={styles.error}>{errors.name}</p>}
 
             <label>Description (Max 51 Words):</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} />
+            <textarea name="description" value={formData.description} onChange={handleChange} maxLength={51} />
             {errors.description && <p className={styles.error}>{errors.description}</p>}
 
             <label>Media Links (Max 6 Links):</label>
