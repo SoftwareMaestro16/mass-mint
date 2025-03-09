@@ -1,5 +1,5 @@
 import { Address, beginCell, Cell } from "@ton/core";
-import { SendTransactionRequest } from "@tonconnect/ui-react";
+import { CHAIN, SendTransactionRequest } from "@tonconnect/ui-react";
 import { NFT_COLLECTION_BASE64, NFT_ITEM_BASE64, SBT_ITEM_BASE64 } from "./constants";
 
 const encodeRoyaltyParams = (params: { royaltyFactor: number; royaltyBase: number; royaltyAddress: Address }): Cell => {
@@ -89,6 +89,7 @@ export async function mintCollection({ nftType, metadata, owner, tonConnectUi, w
 
         const tx: SendTransactionRequest = {
             validUntil: Math.round(Date.now() / 1000) + 60 * 5,
+            network: CHAIN.MAINNET,
             messages
         };
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import styles from "./BatchMint.module.scss";
 import { BackButton, MainButton } from "@twa-dev/sdk/react";
 import * as XLSX from "xlsx";
-import { useTonWallet, toUserFriendlyAddress, SendTransactionRequest, useTonConnectUI } from "@tonconnect/ui-react";
+import { useTonWallet, toUserFriendlyAddress, SendTransactionRequest, useTonConnectUI, CHAIN } from "@tonconnect/ui-react";
 import { Address, beginCell, Cell, Dictionary, DictionaryValue, toNano } from "@ton/core";
 import { getJettonWalletAddress } from "../../../utils/tonapi";
 import { SIMPLE_COIN_ADDRESS } from "../../../utils/constants";
@@ -213,6 +213,7 @@ function BatchMint() {
 
             const tx: SendTransactionRequest = {
                 validUntil: Math.round(Date.now() / 1000) + 60 * 5,
+                network: CHAIN.MAINNET,
                 messages
             };
     
@@ -324,6 +325,7 @@ function BatchMint() {
 
             const tx: SendTransactionRequest = {
                 validUntil: Math.round(Date.now() / 1000) + 60 * 5,
+                network: CHAIN.MAINNET,
                 messages
             };
     
@@ -342,7 +344,7 @@ function BatchMint() {
     };
 
     const validateCollectionAddress = (address: string) => {
-        if (!/^(EQ|UQ|kQ|0Q)/.test(address)) {
+        if (!/^(EQ|UQ)/.test(address)) {
             setCollectionAddressError("Адрес коллекции должен начинаться с EQ, UQ, kQ или 0Q.");
             return false;
         }
@@ -414,7 +416,7 @@ function BatchMint() {
                     throw new Error("Максимальное количество адресов — 200.");
                 }
     
-                const isValid = addresses.every((address: string) => /^(EQ|UQ|kQ|0Q)/.test(address));
+                const isValid = addresses.every((address: string) => /^(EQ|UQ)/.test(address));
                 if (!isValid) {
                     throw new Error("Файл содержит некорректные адреса.");
                 }

@@ -4,7 +4,7 @@ import Fees from "./Fees/Fees";
 import Buttons from "./Buttons/Buttons";
 import Footer from "./Footer/Footer";
 import Media from "./Media/Media";
-import { SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { CHAIN, SendTransactionRequest, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Address, beginCell } from "@ton/core";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -42,6 +42,7 @@ function InTg() {
 
         const tx: SendTransactionRequest = {
             validUntil: Math.round(Date.now() / 1000) + 60 * 5,
+            network: CHAIN.MAINNET,
             messages: [
                 {
                     address: "EQDQCkgingyMh8aqx06HmMjZqhbRijt7kZvvwIMQJTRQpS0f",
