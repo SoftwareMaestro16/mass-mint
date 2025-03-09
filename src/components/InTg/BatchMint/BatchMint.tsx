@@ -462,7 +462,7 @@ function BatchMint() {
     };
 
     const addAttribute = (index: number) => {
-        if (nfts[index].attributes.length < 6) {
+        if (nfts[index].attributes.length < 10) {
             const updatedNfts = [...nfts];
             updatedNfts[index].attributes.push({ trait_type: "", value: "" });
             setNfts(updatedNfts);
