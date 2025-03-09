@@ -32,7 +32,7 @@ const CollectionMint = () => {
     };
 
     const addSocialLink = () => {
-        if (formData.social_links.length < 8) {
+        if (formData.social_links.length < 6) {
             setFormData({ ...formData, social_links: [...formData.social_links, ""] });
         }
     };
@@ -108,7 +108,7 @@ const CollectionMint = () => {
             <textarea name="description" value={formData.description} onChange={handleChange} />
             {errors.description && <p className={styles.error}>{errors.description}</p>}
 
-            <label>Media Links (Max 8 Links):</label>
+            <label>Media Links (Max 6 Links):</label>
             {formData.social_links.map((link, index) => (
                 <div key={index} className={styles.socialLink}>
                     <input
@@ -121,7 +121,7 @@ const CollectionMint = () => {
                     <button className={styles.delButton} onClick={() => removeSocialLink(index)}>❌</button>
                 </div>
             ))}
-            {formData.social_links.length < 8 && (
+            {formData.social_links.length < 6 && (
                 <button type="button" onClick={addSocialLink}>➕ Add Link</button>
             )}
 
