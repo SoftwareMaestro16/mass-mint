@@ -32,7 +32,7 @@ const CollectionMint = () => {
     };
 
     const addSocialLink = () => {
-        if (formData.social_links.length < 5) {
+        if (formData.social_links.length < 8) {
             setFormData({ ...formData, social_links: [...formData.social_links, ""] });
         }
     };
