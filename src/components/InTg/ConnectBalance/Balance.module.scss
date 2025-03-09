@@ -1,0 +1,48 @@
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .blocks {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .balanceBlock {
+        background-color: #0f0f0f;
+        width: auto;
+        height: 40px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        gap: 5px;
+        padding: 0 2px;
+
+        img {
+            width: 24px;
+            height: 24px;
+            margin-left: 5px;
+            border-radius: 50%;
+        }
+        
+        h2 {
+            font-size: 15px;
+            margin-right: 7px;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .blocks {
+            margin-left: 30%;
+        }
+
+        .tcBtn {
+            margin-right: 30%;
+        }
+    }
+}

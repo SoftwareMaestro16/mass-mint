@@ -1,0 +1,144 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0b0b0b; 
+    color: white;
+    min-height: 100vh;
+
+    h1 {
+        font-size: 26px;
+        text-align: center;
+        margin: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #ffffff;
+        color: #0b0b0b;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #ffffff;
+        background-color: #1c1c1c;
+        color: white;
+        width: 85vw;
+        max-width: 390px;
+
+    }
+}
+
+label {
+    font-size: 16px;
+    margin-top: 10px;
+    display: flex;
+
+}
+
+
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #e40101f0;
+    font-size: 14px;
+    margin: 0;
+    margin-top: 8px;
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 85vw;
+    max-width: 400px;
+}
+
+.socialLink input {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 16px;
+    height: 20px;
+}
+
+.socialLink button {
+    background: #e40101f0;
+    color: white;
+    font-weight: bold;
+    width: 38px;
+    height: 38px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0; 
+    margin-bottom: 8px;
+}
+
+
+.socialLink input {
+    flex: 1;
+}
+
+.customSelectWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75vw;
+    max-width: 400px;
+    margin: 10px auto;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.customSelect {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #1c1c1c;
+    border: 2px solid white;
+    border-radius: 6px;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    padding-right: 35px; 
+}
+
+.customSelectWrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.customSelect:hover {
+    border-color: #ccc;
+}
+
+.customSelect:focus {
+    border-color: #00bfff;
+    outline: none;
+}

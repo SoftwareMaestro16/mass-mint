@@ -1,0 +1,25 @@
+.mediaContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 45px;
+
+    .images {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 5px;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    // h2 {
+    //     font-size: 20px;
+    //     margin: 0;
+    //     color: rgb(213, 212, 212);
+    //     font-weight: 500;
+    // }
+}

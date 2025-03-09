@@ -1,0 +1,19 @@
+.footer {
+    background-color: #0b0b0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+
+    h2 {
+        font-size: 16px;
+        color: #cbcbcb;
+        margin: 0;
+    }
+
+    
+}

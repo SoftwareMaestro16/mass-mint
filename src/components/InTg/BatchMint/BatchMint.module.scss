@@ -1,0 +1,154 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0b0b0b;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+
+    .fileUpload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .fileLabel {
+        background-color: #ffffff;
+        color: #0b0b0b;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .errorText {
+        color: rgb(208, 35, 35);
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .successText {
+        color: rgb(0, 255, 0);
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+
+    .removeButton {
+        background-color: rgb(208, 35, 35);
+    }
+
+    h1 {
+        font-size: 26px;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    button {
+        background-color: #ffffff;
+        color: #0b0b0b;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 15px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+}
+
+.nftBlock {
+    background: #1c1c1c;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    width: 85vw;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .removeButton {
+        background-color: rgb(208, 35, 35);
+    }
+}
+
+label {
+    font-size: 16px;
+    margin-top: 10px;
+    display: flex;
+}
+
+input, textarea {
+    width: 95%;
+    max-width: 370px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ffffff;
+    background-color: #1c1c1c;
+    color: white;
+    resize: none;
+}
+
+textarea {
+    height: 80px;
+}
+
+.attributeBlock {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.attributeBlock input {
+    width: 48%;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+.customSelect {
+    width: 85vw;
+    max-width: 370px;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #1c1c1c;
+    border: 2px solid white;
+    border-radius: 6px;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    padding-right: 35px;
+}
+
+.customSelectWrapper {
+    position: relative;
+    width: 85vw;
+    max-width: 370px;
+}
+
+.customSelectWrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.disc {
+    max-width: 85vw;
+    font-size: 13.2px;
+}

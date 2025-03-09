@@ -1,0 +1,16 @@
+body {
+    background: #1a1a1e;
+}
+
+.notContainer {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 90vh;
+
+    h1 {
+        font-size: 24px;
+    }
+}
