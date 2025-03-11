@@ -120,6 +120,15 @@ function InTg() {
                     {/* <button onClick={claimSimpleCoin}>{scBalance !== null && (scBalance / 10**9)} $SC</button> */}
                 </div>
             }
+
+            <a 
+                href="https://telegra.ph/Kak-polzovatsya-Mass-Mint-bot-03-11#%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%BA%D0%BE%D0%BB%D0%BB%D0%B5%D0%BA%D1%86%D0%B8%D0%B8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.telegramLink}
+            >
+            <h1 className={styles.guide}>Guide how to Mint.</h1>            
+            </a>  
         </>
     );
 }
