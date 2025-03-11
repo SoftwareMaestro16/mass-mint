@@ -127,7 +127,7 @@ function InTg() {
                 rel="noopener noreferrer"
                 className={styles.telegramLink}
             >
-            <h1 className={styles.guide}>Guide how to Mint.</h1>            
+            <h1 className={styles.guide}>Guide how to Mint</h1>            
             </a>  
         </>
     );
