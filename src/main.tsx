@@ -2,6 +2,12 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import AppRouter from './components/AppRouter'
 import { THEME, TonConnectUIProvider } from '@tonconnect/ui-react'
+import telegramAnalytics from '@telegram-apps/analytics';
+
+telegramAnalytics.init({
+    token: 'eyJhcHBfbmFtZSI6Ik1BU1NfTUlOVCIsImFwcF91cmwiOiJodHRwczovL3QubWUvTWFzc01pbnRCb3QiLCJhcHBfZG9tYWluIjoiaHR0cHM6Ly9tYXNzLW1pbnQubmV0bGlmeS5hcHAvIn0=!K+M4Ug5Y1d1TM6VR1uQsyz+Blq80WheFdpMMPXpaK9Q=', 
+    appName: 'MASS_MINT', 
+});
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
