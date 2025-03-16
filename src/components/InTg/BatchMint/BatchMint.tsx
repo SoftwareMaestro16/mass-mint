@@ -130,7 +130,7 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerNFT = toNano(0.041);
+            const commissionPerNFT = toNano(0.0445);
             const numOfNfts = owners.length;
 
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
@@ -240,7 +240,7 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerSBT = toNano(0.041);
+            const commissionPerSBT = toNano(0.0445);
             const numOfNfts = owners.length;
 
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
