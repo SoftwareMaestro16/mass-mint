@@ -16,7 +16,7 @@ function InTg() {
     const [, setScBalance] = useState(null);
 
     useEffect(() => {
-        const tonUrl = 'https://tonapi.io/v2/accounts/EQDQCkgingyMh8aqx06HmMjZqhbRijt7kZvvwIMQJTRQpS0f';
+        const tonUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn';
         const scUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn/jettons/EQB9QBqniFI0jOmw3PU6v1v4LU3Sivm9yPXDDB9Qf7cXTDft?currencies=ton,usd,rub&supported_extensions=custom_payload';
 
         axios.all([axios.get(tonUrl), axios.get(scUrl)])
@@ -45,8 +45,8 @@ function InTg() {
             network: CHAIN.MAINNET,
             messages: [
                 {
-                    address: "EQDQCkgingyMh8aqx06HmMjZqhbRijt7kZvvwIMQJTRQpS0f",
-                    amount: "33500000",
+                    address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
+                    amount: "23500000",
                     payload
                 }
             ]
