@@ -29,14 +29,14 @@ createRoot(document.getElementById('root')!).render(
           },
           [THEME.LIGHT]: { 
             connectButton: {
-              background: '#141414',
+              background: '#FFFFFF',
             },
-            accent: '#4a4a4a',
-            telegramButton: '#1a1a1a',
+            accent: '#CCCCCC', 
+            telegramButton: '#F5F5F5',
             background: {
-              primary: '#0d0d0d',
-              secondary: '#1a1a1a',
-              tint: '#2b2b2b'
+              primary: '#FFFFFF', 
+              secondary: '#F8F8F8',
+              tint: '#EAEAEA'
             }
           }
         },
