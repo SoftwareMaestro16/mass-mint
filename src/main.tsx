@@ -29,7 +29,7 @@ createRoot(document.getElementById('root')!).render(
           },
           [THEME.LIGHT]: { 
             connectButton: {
-              background: '#FFFFFF', // Белая кнопка
+              background: '#000000', // Белая кнопка
             },
             accent: '#000000', // Черный акцент
             telegramButton: '#000000', // Черная кнопка Telegram
