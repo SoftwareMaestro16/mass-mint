@@ -134,7 +134,7 @@ function InTg() {
             <a href="https://dyor.io/dapps/art/mass-mint?utm_source=dapp-badge" target="_blank">	
                 <img 
                     alt="Mass Mint Badge"
-                    height="62"
+                    height="64"
                     width="auto"
                     loading="lazy"
                     src="https://dyor.io/client/api/dapp/rank/mass-mint?theme=dark"
