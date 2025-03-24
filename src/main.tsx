@@ -29,14 +29,14 @@ createRoot(document.getElementById('root')!).render(
           },
           [THEME.LIGHT]: { 
             connectButton: {
-              background: '#000000', // Белая кнопка
+              background: '#000000', 
             },
-            accent: '#000000', // Черный акцент
-            telegramButton: '#000000', // Черная кнопка Telegram
+            accent: '#000000', 
+            telegramButton: '#000000',
             background: {
-              primary: '#FFFFFF', // Белый фон
-              secondary: '#FFFFFF', // Белый вторичный фон
-              tint: '#FFFFFF' // Полностью белая тема
+              primary: '#FFFFFF',
+              secondary: '#FFFFFF', 
+              tint: '#FFFFFF'
             }
           }
         },

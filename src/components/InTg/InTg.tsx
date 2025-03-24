@@ -129,6 +129,20 @@ function InTg() {
             >
             <h1 className={styles.guide}>Guide how to Mint</h1>            
             </a>  
+
+            <div className={styles.rating}>
+            <a href="https://dyor.io/dapps/art/mass-mint?utm_source=dapp-badge" target="_blank">	
+                <img 
+                    alt="Mass Mint Badge"
+                    height="55"
+                    width="auto"
+                    loading="lazy"
+                    src="https://dyor.io/client/api/dapp/rank/mass-mint?theme=dark"
+                />
+                </a>
+            </div>
+
+           
         </>
     );
 }
