@@ -237,7 +237,8 @@ function BatchMint() {
             const feeInTon = toNano(0.01);
             const commissionPerSBT = toNano(0.045);
             const numOfNfts = owners.length;
-
+            console.log('num of nfts', numOfNfts);
+            
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
 
             const sbts: CollectionMintSBT[] = [];
