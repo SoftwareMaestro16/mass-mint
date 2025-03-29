@@ -7,6 +7,7 @@ import { useTonWallet, toUserFriendlyAddress, SendTransactionRequest, useTonConn
 import { Address, beginCell, Cell, Dictionary, DictionaryValue, toNano } from "@ton/core";
 import { getJettonWalletAddress } from "../../../utils/tonapi";
 import { SIMPLE_COIN_ADDRESS } from "../../../utils/constants";
+import { log } from "console";
 
 interface Attribute {
     trait_type: string;
@@ -316,6 +317,9 @@ function BatchMint() {
                 network: CHAIN.MAINNET,
                 messages
             };
+
+            console.log('block', totalAmount);
+            console.log('fees', totalFeesInTon);      
     
             const result = await tonConnectUi.sendTransaction(tx, {
                 modals: 'all',
