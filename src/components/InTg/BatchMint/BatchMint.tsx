@@ -134,12 +134,10 @@ function BatchMint() {
             const numOfNfts = owners.length;
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address);
     
-            // Рассчитываем общие суммы
             const totalAmount = commissionPerNFT * BigInt(numOfNfts);
             const totalFeesInTon = BigInt(numOfNfts) * feeInTon;
-            const totalFeesInSC = BigInt(numOfNfts * 100); // 100 SC за NFT
+            const totalFeesInSC = BigInt(numOfNfts * 100);
     
-            // Получаем баланс
             const tonResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}`);
             const tonData = await tonResponse.json();
             const tonBalance = BigInt(tonData?.balance || 0);
