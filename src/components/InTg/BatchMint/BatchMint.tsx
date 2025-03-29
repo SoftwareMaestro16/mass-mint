@@ -289,6 +289,10 @@ function BatchMint() {
             const totalAmount = commissionPerSBT * BigInt(sbts.length);
             const totalFeesInTon = BigInt(sbts.length) * feeInTon;
 
+            console.log('block', totalAmount);
+            console.log('fees', totalFeesInTon);      
+            console.log('nfts', sbts.length);
+            
             const messages: SendTransactionRequest["messages"] = [
                 {
                     address: collectionAddress,
@@ -318,9 +322,7 @@ function BatchMint() {
                 messages
             };
 
-            console.log('block', totalAmount);
-            console.log('fees', totalFeesInTon);      
-    
+            
             const result = await tonConnectUi.sendTransaction(tx, {
                 modals: 'all',
                 notifications: ['error']
