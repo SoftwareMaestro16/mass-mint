@@ -130,7 +130,7 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerNFT = toNano(0.0465);
+            const commissionPerNFT = toNano(0.045);
             const numOfNfts = owners.length;
 
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
@@ -182,11 +182,6 @@ function BatchMint() {
             const totalAmount = commissionPerNFT * BigInt(nfts.length);
             const totalFeesInTon = BigInt(nfts.length) * feeInTon;
 
-            const feePayload = beginCell()
-                .storeUint(0, 32)
-                .storeStringTail(`simple coin comission. mint ${numOfNfts} NFT.`)
-            .endCell()
-
             const messages: SendTransactionRequest["messages"] = [
                 {
                     address: collectionAddress,
@@ -199,7 +194,6 @@ function BatchMint() {
                 messages.push({
                     address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
-                    payload: feePayload.toBoc().toString("base64")
                 });
             }
 
@@ -240,7 +234,7 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerSBT = toNano(0.0465);
+            const commissionPerSBT = toNano(0.045);
             const numOfNfts = owners.length;
 
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
@@ -293,11 +287,6 @@ function BatchMint() {
     
             const totalAmount = commissionPerSBT * BigInt(sbts.length);
             const totalFeesInTon = BigInt(sbts.length) * feeInTon;
-            
-            const feePayload = beginCell()
-                .storeUint(0, 32)
-                .storeStringTail(`simple coin comission. mint ${numOfNfts} NFT.`)
-            .endCell()
 
             const messages: SendTransactionRequest["messages"] = [
                 {
@@ -311,7 +300,6 @@ function BatchMint() {
                 messages.push({
                     address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
-                    payload: feePayload.toBoc().toString("base64")
                 });
             }
 
