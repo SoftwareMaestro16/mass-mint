@@ -265,8 +265,14 @@ function BatchMint() {
                 batchDict.set(sbt.itemIndex, sbt);
             }
             console.log(batchDict);
+
+            const totalAmount = commissionPerSBT * BigInt(sbts.length);
+            const totalFeesInTon = BigInt(sbts.length) * feeInTon;
+
+            console.log('block', totalAmount);
+            console.log('fees', totalFeesInTon);      
+            console.log('nfts', sbts.length);
             
-    
             const payload = beginCell()
                 .storeUint(2, 32) // op 2
                 .storeUint(123, 64) // queryId
@@ -286,12 +292,7 @@ function BatchMint() {
                 .storeMaybeRef()
             .endCell().toBoc().toString('base64');
     
-            const totalAmount = commissionPerSBT * BigInt(sbts.length);
-            const totalFeesInTon = BigInt(sbts.length) * feeInTon;
-
-            console.log('block', totalAmount);
-            console.log('fees', totalFeesInTon);      
-            console.log('nfts', sbts.length);
+            
             
             const messages: SendTransactionRequest["messages"] = [
                 {
