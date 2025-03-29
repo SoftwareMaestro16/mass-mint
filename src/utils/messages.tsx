@@ -81,7 +81,7 @@ export async function mintCollection({ nftType, metadata, owner, tonConnectUi, w
 
         if (nftType === "SBT") {
             messages.push({
-                address: owner,
+                address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                 amount: "15000000",
                 payload: payload.toBoc().toString("base64")
             });
