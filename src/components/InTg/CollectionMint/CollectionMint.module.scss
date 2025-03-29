@@ -3,20 +3,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #0b0b0b; 
+    background: linear-gradient(135deg, #0b0b0b 0%, #1c1c1c 100%);
     color: white;
     min-height: 100vh;
+    padding: 20px;
 
     h1 {
         font-size: 26px;
         text-align: center;
-        margin: 0;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
     }
 
     button {
-        background-color: #ffffff;
+        background: linear-gradient(to right, #ffffff 0%, #e0e0e0 100%);
         color: #0b0b0b;
         border: none;
         padding: 10px 20px;
@@ -24,19 +24,40 @@
         font-size: 16px;
         cursor: pointer;
         border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+
+        img {
+            width: 25px;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+        }
     }
 
     input, textarea {
-        width: 100%;
+        width: 85vw;
+        max-width: 390px;
         padding: 10px;
         margin-top: 5px;
         border-radius: 6px;
         border: 1px solid #ffffff;
-        background-color: #1c1c1c;
+        background: linear-gradient(to right, #1c1c1c 0%, #252525 100%);
         color: white;
-        width: 85vw;
-        max-width: 390px;
+        box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
 
+        &:hover {
+            border-color: #ccc;
+        }
+
+        &:focus {
+            border-color: #00bfff;
+            box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+            outline: none;
+        }
     }
 }
 
@@ -44,21 +65,21 @@ label {
     font-size: 16px;
     margin-top: 10px;
     display: flex;
-
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.1);
 }
 
-
-
 button:disabled {
-    background-color: gray;
+    background: gray;
     cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
 
 .error {
     color: #e40101f0;
     font-size: 14px;
-    margin: 0;
-    margin-top: 8px;
+    margin: 8px 0 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .socialLink {
@@ -74,10 +95,20 @@ button:disabled {
     padding: 8px;
     font-size: 16px;
     height: 20px;
+    border-radius: 5px;
+    background: #1c1c1c;
+    border: 1px solid #ffffff;
+    color: white;
+    transition: all 0.3s ease;
+
+    &:focus {
+        border-color: #00bfff;
+        box-shadow: 0 0 8px rgba(0, 191, 255, 0.5);
+    }
 }
 
 .socialLink button {
-    background: #e40101f0;
+    background: linear-gradient(to right, #e40101f0 0%, #ff4d4d 100%);
     color: white;
     font-weight: bold;
     width: 38px;
@@ -89,13 +120,15 @@ button:disabled {
     font-size: 16px;
     border: none;
     cursor: pointer;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     margin-bottom: 8px;
-}
+    box-shadow: 0 4px 10px rgba(228, 1, 1, 0.4);
+    transition: all 0.3s ease;
 
-
-.socialLink input {
-    flex: 1;
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 14px rgba(228, 1, 1, 0.6);
+    }
 }
 
 .customSelectWrapper {
@@ -104,41 +137,74 @@ button:disabled {
     justify-content: center;
     width: 75vw;
     max-width: 400px;
-    margin: 10px auto;
-    margin-bottom: 25px;
+    margin: 10px auto 25px;
     position: relative;
+    perspective: 1000px;
 }
 
 .customSelect {
     width: 100%;
     padding: 10px;
+    padding-right: 35px;
     font-size: 16px;
     color: white;
-    background-color: #1c1c1c;
+    background: linear-gradient(145deg, #1c1c1c 0%, #2a2a2a 100%);
     border: 2px solid white;
-    border-radius: 6px;
+    border-radius: 8px;
     appearance: none;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    padding-right: 35px; 
+    transition: all 0.4s ease-in-out;
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    &:hover {
+        border-color: #00bfff;
+        box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 191, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    &:focus {
+        border-color: #00bfff;
+        background: #4a4a4a; 
+        box-shadow: 0 0 14px rgba(0, 191, 255, 0.6), inset 0 3px 8px rgba(0, 0, 0, 0.4);
+        outline: none;
+        transform: scale(1.02);
+        color: white;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: all 0.6s ease;
+        z-index: -1;
+    }
+
+    &:hover:before {
+        left: 100%;
+    }
 }
 
 .customSelectWrapper::after {
     content: "▼";
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) rotate(0deg);
     color: white;
     font-size: 14px;
     pointer-events: none;
+    transition: all 0.3s ease;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.customSelect:hover {
-    border-color: #ccc;
-}
-
-.customSelect:focus {
-    border-color: #00bfff;
-    outline: none;
+.customSelectWrapper.focused::after {
+    transform: translateY(-50%) rotate(180deg);
 }

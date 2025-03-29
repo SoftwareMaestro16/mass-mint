@@ -118,11 +118,13 @@ const CollectionMint = () => {
                         onChange={(e) => handleChange(e, index)}
                         placeholder="Enter URL (Telegram, Twitter...)"
                     />
-                    <button className={styles.delButton} onClick={() => removeSocialLink(index)}>❌</button>
+                    <button className={styles.delButton} onClick={() => removeSocialLink(index)}>
+                        <img src="/delete.png" alt="" />
+                    </button>
                 </div>
             ))}
             {formData.social_links.length < 6 && (
-                <button type="button" onClick={addSocialLink}>➕ Add Link</button>
+                <button type="button" onClick={addSocialLink}>Add Link</button>
             )}
 
             <label>Image URL:</label>
