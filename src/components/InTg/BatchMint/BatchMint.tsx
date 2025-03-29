@@ -133,8 +133,38 @@ function BatchMint() {
             const feeInTon = toNano(0.01);
             const commissionPerNFT = toNano(0.045);
             const numOfNfts = owners.length;
-
-            const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
+            const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address);
+    
+            // Рассчитываем общие суммы
+            const totalAmount = commissionPerNFT * BigInt(numOfNfts);
+            const totalFeesInTon = BigInt(numOfNfts) * feeInTon;
+            const totalFeesInSC = BigInt(numOfNfts * 100); // 100 SC за NFT
+    
+            // Получаем баланс
+            const tonResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}`);
+            const tonData = await tonResponse.json();
+            const tonBalance = BigInt(tonData?.balance || 0);
+    
+            const scResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}/jettons/${SIMPLE_COIN_ADDRESS}`);
+            const scData = await scResponse.json();
+            const scBalance = BigInt(scData?.balance || 0);
+    
+            if (paymentType === "TON") {
+                const requiredTon = totalAmount + totalFeesInTon;
+                if (tonBalance < requiredTon) {
+                    alert(`Недостаточно TON на балансе!\nТребуется: ${(Number(requiredTon) / 1e9).toFixed(4)} TON\nДоступно: ${(Number(tonBalance) / 1e9).toFixed(4)} TON`);
+                    return;
+                }
+            } else if (paymentType === "SC") {
+                if (tonBalance < totalAmount) {
+                    alert(`Недостаточно TON для оплаты транзакции!\nТребуется: ${(Number(totalAmount) / 1e9).toFixed(4)} TON\nДоступно: ${(Number(tonBalance) / 1e9).toFixed(4)} TON`);
+                    return;
+                }
+                if (scBalance < totalFeesInSC * BigInt(1e9)) {
+                    alert(`Недостаточно Simple Coin для оплаты комиссии!\nТребуется: ${totalFeesInSC} SC\nДоступно: ${(Number(scBalance) / 1e9).toFixed(4)} SC`);
+                    return;
+                }
+            }
     
             const nfts: CollectionMint[] = [];
             const usedIndices = new Set<number>();
@@ -147,9 +177,7 @@ function BatchMint() {
         
                     if (!usedIndices.has(randomIndex)) {
                         usedIndices.add(randomIndex);
-        
                         nfts.push(generateNFT(randomIndex, passAmountPerItem, Address.parse(owner), randomMetadataUrl));
-                        console.log(`Minting NFT for owner: ${owner}, Metadata URL: ${randomMetadataUrl}`);
                     }
                 }
             }
@@ -158,54 +186,45 @@ function BatchMint() {
             for (const nft of nfts) {
                 batchDict.set(nft.itemIndex, nft);
             }
-            console.log(batchDict);
-            
     
             const payload = beginCell()
-                .storeUint(2, 32) // op 2
-                .storeUint(123, 64) // queryId
+                .storeUint(2, 32)
+                .storeUint(123, 64)
                 .storeDict(batchDict)
                 .endCell()
                 .toBoc()
                 .toString('base64');
-
+    
             const jettonPayload = beginCell()
                 .storeUint(0x0f8a7ea5, 32)
                 .storeUint(123, 64)
-                .storeCoins((nfts.length * 100) * 10**9)
+                .storeCoins(totalFeesInSC * BigInt(1e9))
                 .storeAddress(Address.parse("UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw"))
                 .storeAddress(null)
                 .storeMaybeRef()
                 .storeCoins(0)
                 .storeMaybeRef()
-            .endCell().toBoc().toString('base64');
+                .endCell().toBoc().toString('base64');
     
-            const totalAmount = commissionPerNFT * BigInt(nfts.length);
-            const totalFeesInTon = BigInt(nfts.length) * feeInTon;
-
-            const messages: SendTransactionRequest["messages"] = [
-                {
-                    address: collectionAddress,
-                    amount: totalAmount.toString(),
-                    payload
-                }
-            ];
-
+            const messages: SendTransactionRequest["messages"] = [{
+                address: collectionAddress,
+                amount: totalAmount.toString(),
+                payload
+            }];
+    
             if (paymentType === "TON") {
                 messages.push({
                     address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
                 });
-            }
-
-            else if (paymentType === "SC") {
+            } else if (paymentType === "SC") {
                 messages.push({
                     address: jwAddress,
                     amount: '50000000',
                     payload: jettonPayload
                 });
             }
-
+    
             const tx: SendTransactionRequest = {
                 validUntil: Math.round(Date.now() / 1000) + 60 * 5,
                 network: CHAIN.MAINNET,
@@ -218,14 +237,13 @@ function BatchMint() {
             });
     
             const imMsgCell = Cell.fromBase64(result.boc);
-            const inMsgHash = imMsgCell.hash().toString('hex');
-            console.log(inMsgHash);
+            console.log(imMsgCell.hash().toString('hex'));
     
         } catch (e) {
             console.error('Error sending transaction:', e);
         }
     };
-
+    
     const onSendMintBatchSbt = async (owners: string[], metadataUrls: string[]) => {
         if (!wallet) {
             console.error('Wallet is not connected');
@@ -236,103 +254,111 @@ function BatchMint() {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
             const commissionPerSBT = toNano(0.045);
-            const numOfNfts = owners.length;
-            console.log('num of nfts', numOfNfts);
-            
-            const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address)
-
+            const numOfSbts = owners.length;
+            const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address);
+    
+            const totalAmount = commissionPerSBT * BigInt(numOfSbts);
+            const totalFeesInTon = BigInt(numOfSbts) * feeInTon;
+            const totalFeesInSC = BigInt(numOfSbts * 100);
+    
+            const tonResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}`);
+            const tonData = await tonResponse.json();
+            const tonBalance = BigInt(tonData?.balance || 0);
+    
+            const scResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}/jettons/${SIMPLE_COIN_ADDRESS}`);
+            const scData = await scResponse.json();
+            const scBalance = BigInt(scData?.balance || 0);
+    
+            if (paymentType === "TON") {
+                const requiredTon = totalAmount + totalFeesInTon;
+                if (tonBalance < requiredTon) {
+                    alert(`Недостаточно TON на балансе!\nТребуется: ${(Number(requiredTon) / 1e9).toFixed(4)} TON\nДоступно: ${(Number(tonBalance) / 1e9).toFixed(4)} TON`);
+                    return;
+                }
+            } else if (paymentType === "SC") {
+                if (tonBalance < totalAmount) {
+                    alert(`Недостаточно TON для оплаты транзакции!\nТребуется: ${(Number(totalAmount) / 1e9).toFixed(4)} TON\nДоступно: ${(Number(tonBalance) / 1e9).toFixed(4)} TON`);
+                    return;
+                }
+                if (scBalance < totalFeesInSC * BigInt(1e9)) {
+                    alert(`Недостаточно Simple Coin для оплаты комиссии!\nТребуется: ${totalFeesInSC} SC\nДоступно: ${(Number(scBalance) / 1e9).toFixed(4)} SC`);
+                    return;
+                }
+            }
+    
             const sbts: CollectionMintSBT[] = [];
             const usedIndices = new Set<number>();
     
-            while (sbts.length < numOfNfts) {
-                for (let i = 0; i < numOfNfts; i++) {
+            while (sbts.length < numOfSbts) {
+                for (let i = 0; i < numOfSbts; i++) {
                     const owner = owners[i];
-                    const randomBoundAddress = owner; 
+                    const randomBoundAddress = owner;
                     const randomMetadataUrl = metadataUrls[Math.floor(Math.random() * metadataUrls.length)];
                     const randomIndex = Math.floor(Math.random() * 1000);
         
                     if (!usedIndices.has(randomIndex)) {
                         usedIndices.add(randomIndex);
-        
                         sbts.push(generateSBT(randomIndex, passAmountPerItem, Address.parse(owner), Address.parse(randomBoundAddress), randomMetadataUrl));
-                        console.log(`Minting SBT for owner: ${owner}, Bound Address: ${randomBoundAddress}, Metadata URL: ${randomMetadataUrl}`);
                     }
                 }
             }
-            
     
             const batchDict = Dictionary.empty(Dictionary.Keys.Uint(64), MintDictValueSBT);
             for (const sbt of sbts) {
                 batchDict.set(sbt.itemIndex, sbt);
             }
-            console.log(batchDict);
-
-            const totalAmount = commissionPerSBT * BigInt(sbts.length);
-            const totalFeesInTon = BigInt(sbts.length) * feeInTon;
-
-            console.log('block', totalAmount);
-            console.log('fees', totalFeesInTon);      
-            console.log('nfts', sbts.length);
-            
+    
             const payload = beginCell()
-                .storeUint(2, 32) // op 2
-                .storeUint(123, 64) // queryId
+                .storeUint(2, 32)
+                .storeUint(123, 64)
                 .storeDict(batchDict)
                 .endCell()
                 .toBoc()
                 .toString('base64');
-
+    
             const jettonPayload = beginCell()
                 .storeUint(0x0f8a7ea5, 32)
                 .storeUint(123, 64)
-                .storeCoins((numOfNfts * 100) * 10**9)
+                .storeCoins(totalFeesInSC * BigInt(1e9))
                 .storeAddress(Address.parse("UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw"))
                 .storeAddress(null)
                 .storeMaybeRef()
                 .storeCoins(0)
                 .storeMaybeRef()
-            .endCell().toBoc().toString('base64');
+                .endCell().toBoc().toString('base64');
     
-            
-            
-            const messages: SendTransactionRequest["messages"] = [
-                {
-                    address: collectionAddress,
-                    amount: totalAmount.toString(),
-                    payload
-                }
-            ];
-
+            const messages: SendTransactionRequest["messages"] = [{
+                address: collectionAddress,
+                amount: totalAmount.toString(),
+                payload
+            }];
+    
             if (paymentType === "TON") {
                 messages.push({
                     address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                     amount: totalFeesInTon.toString(),
                 });
-            }
-
-            else if (paymentType === "SC") {
+            } else if (paymentType === "SC") {
                 messages.push({
                     address: jwAddress,
                     amount: '50000000',
                     payload: jettonPayload
                 });
             }
-
+    
             const tx: SendTransactionRequest = {
                 validUntil: Math.round(Date.now() / 1000) + 60 * 5,
                 network: CHAIN.MAINNET,
                 messages
             };
-
-            
+    
             const result = await tonConnectUi.sendTransaction(tx, {
                 modals: 'all',
                 notifications: ['error']
             });
     
             const imMsgCell = Cell.fromBase64(result.boc);
-            const inMsgHash = imMsgCell.hash().toString('hex');
-            console.log(inMsgHash);       
+            console.log(imMsgCell.hash().toString('hex'));
     
         } catch (e) {
             console.error('Error sending transaction:', e);
