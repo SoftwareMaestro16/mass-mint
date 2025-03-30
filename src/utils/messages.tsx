@@ -63,10 +63,10 @@ export async function mintCollection({ nftType, metadata, owner, tonConnectUi, w
             .storeRef(collectionData)
             .endCell();
 
-        const payload = beginCell()
-            .storeUint(0, 32)
-            .storeStringTail("simple coin comission")
-        .endCell()
+        // const payload = beginCell()
+        //     .storeUint(0, 32)
+        //     .storeStringTail("simple coin comission")
+        // .endCell()
 
         const smartContractAddress = new Address(0, state.hash()).toRawString();
         console.log("Smart contract address:", smartContractAddress);
@@ -83,7 +83,6 @@ export async function mintCollection({ nftType, metadata, owner, tonConnectUi, w
             messages.push({
                 address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
                 amount: "15000000",
-                payload: payload.toBoc().toString("base64")
             });
         }
 
