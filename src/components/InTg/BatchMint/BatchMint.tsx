@@ -679,7 +679,6 @@ function BatchMint() {
                 type="text"
                 value={collectionAddress}
                 onChange={(e) => setCollectionAddress(e.target.value)}
-
             />
 
             <label>Type of NFT:</label>
