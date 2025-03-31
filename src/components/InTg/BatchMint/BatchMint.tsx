@@ -453,7 +453,7 @@ function BatchMint() {
     };
 
     const addNFT = () => {
-        if (nfts.length < 5) {
+        if (nfts.length < 20) {
             setNfts([...nfts, { name: "", image: "", description: "", content_url: "", attributes: [{ trait_type: "", value: "" }] }]);
         }
     };
