@@ -653,7 +653,7 @@ function BatchMint() {
                         </div>
                     ))}
 
-                    {nft.attributes.length < 10 && (
+                    {nft.attributes.length < 20 && (
                         <button onClick={() => addAttribute(nftIndex)}>Add Attribute</button>
                     )}
                     {nft.attributes.length > 1 && (
@@ -662,7 +662,7 @@ function BatchMint() {
                 </div>
             ))}
 
-            {nfts.length < 5 && <button onClick={addNFT}>Add Metadata</button>}
+            {nfts.length < 20 && <button onClick={addNFT}>Add Metadata</button>}
             {nfts.length > 1 && <button className={styles.removeButton} onClick={removeNFT}>Remove Last Metadata</button>}
 
             <div className={styles.fileUpload}>
