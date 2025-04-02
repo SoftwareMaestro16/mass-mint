@@ -42,6 +42,7 @@ function BatchMint() {
     const [addressCount, setAddressCount] = useState<number>(0);
     const [fileError, setFileError] = useState<string>("");
     const [, setErrorMessage] = useState<string>("");
+    const [metadataDistribution, setMetadataDistribution] = useState<string>("random"); 
     const wallet = useTonWallet();
     const [tonConnectUi] = useTonConnectUI();
 
@@ -130,7 +131,7 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerNFT = toNano(0.045);
+            const commissionPerNFT = toNano(0.0455);
             const numOfNfts = owners.length;
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address);
     
@@ -166,16 +167,27 @@ function BatchMint() {
             const nfts: CollectionMint[] = [];
             const usedIndices = new Set<number>();
     
-            while (nfts.length < numOfNfts) {
+            if (metadataDistribution === "random") {
+                while (nfts.length < numOfNfts) {
+                    for (let i = 0; i < numOfNfts; i++) {
+                        const owner = owners[i];
+                        const randomMetadataUrl = metadataUrls[Math.floor(Math.random() * metadataUrls.length)];
+                        const randomIndex = Math.floor(Math.random() * 1000);
+            
+                        if (!usedIndices.has(randomIndex)) {
+                            usedIndices.add(randomIndex);
+                            nfts.push(generateNFT(randomIndex, passAmountPerItem, Address.parse(owner), randomMetadataUrl));
+                        }
+                    }
+                }
+            } else {
                 for (let i = 0; i < numOfNfts; i++) {
                     const owner = owners[i];
-                    const randomMetadataUrl = metadataUrls[Math.floor(Math.random() * metadataUrls.length)];
-                    const randomIndex = Math.floor(Math.random() * 1000);
-        
-                    if (!usedIndices.has(randomIndex)) {
-                        usedIndices.add(randomIndex);
-                        nfts.push(generateNFT(randomIndex, passAmountPerItem, Address.parse(owner), randomMetadataUrl));
-                    }
+                    const metadataUrl = metadataUrls[i % metadataUrls.length];
+                    const index = i;
+                    
+                    nfts.push(generateNFT(index, passAmountPerItem, Address.parse(owner), metadataUrl));
+                    usedIndices.add(index);
                 }
             }
     
@@ -217,7 +229,7 @@ function BatchMint() {
             } else if (paymentType === "SC") {
                 messages.push({
                     address: jwAddress,
-                    amount: '50000000',
+                    amount: '55000000',
                     payload: jettonPayload
                 });
             }
@@ -250,12 +262,17 @@ function BatchMint() {
         try {
             const passAmountPerItem = toNano(0.0385);
             const feeInTon = toNano(0.01);
-            const commissionPerSBT = toNano(0.045);
+            const commissionPerSBT = toNano(0.0455);
             const numOfSbts = owners.length;
+            console.log('nums', numOfSbts);
+            
             const jwAddress = await getJettonWalletAddress(Address.parse(SIMPLE_COIN_ADDRESS).toRawString(), wallet!.account.address);
     
-            const totalAmount = commissionPerSBT * BigInt(numOfSbts);
-            const totalFeesInTon = BigInt(numOfSbts) * feeInTon;
+            const totalAmount = (commissionPerSBT * BigInt(numOfSbts));
+            console.log(totalAmount, 'total');
+            const totalFeesInTon = (BigInt(numOfSbts) * feeInTon);
+            console.log('fees in ton', totalFeesInTon);
+            
             const totalFeesInSC = BigInt(numOfSbts * 100);
     
             const tonResponse = await fetch(`https://tonapi.io/v2/accounts/${wallet!.account.address}`);
@@ -286,17 +303,29 @@ function BatchMint() {
             const sbts: CollectionMintSBT[] = [];
             const usedIndices = new Set<number>();
     
-            while (sbts.length < numOfSbts) {
+            if (metadataDistribution === "random") {
+                while (sbts.length < numOfSbts) {
+                    for (let i = 0; i < numOfSbts; i++) {
+                        const owner = owners[i];
+                        const randomBoundAddress = owner;
+                        const randomMetadataUrl = metadataUrls[Math.floor(Math.random() * metadataUrls.length)];
+                        const randomIndex = Math.floor(Math.random() * 1000);
+            
+                        if (!usedIndices.has(randomIndex)) {
+                            usedIndices.add(randomIndex);
+                            sbts.push(generateSBT(randomIndex, passAmountPerItem, Address.parse(owner), Address.parse(randomBoundAddress), randomMetadataUrl));
+                        }
+                    }
+                }
+            } else {
                 for (let i = 0; i < numOfSbts; i++) {
                     const owner = owners[i];
-                    const randomBoundAddress = owner;
-                    const randomMetadataUrl = metadataUrls[Math.floor(Math.random() * metadataUrls.length)];
-                    const randomIndex = Math.floor(Math.random() * 1000);
-        
-                    if (!usedIndices.has(randomIndex)) {
-                        usedIndices.add(randomIndex);
-                        sbts.push(generateSBT(randomIndex, passAmountPerItem, Address.parse(owner), Address.parse(randomBoundAddress), randomMetadataUrl));
-                    }
+                    const boundAddress = owner;
+                    const metadataUrl = metadataUrls[i % metadataUrls.length];
+                    const index = i; 
+                    
+                    sbts.push(generateSBT(index, passAmountPerItem, Address.parse(owner), Address.parse(boundAddress), metadataUrl));
+                    usedIndices.add(index);
                 }
             }
     
@@ -322,7 +351,7 @@ function BatchMint() {
                 .storeMaybeRef()
                 .storeCoins(0)
                 .storeMaybeRef()
-                .endCell().toBoc().toString('base64');
+                .endCell().toBoc().toString('base64');          
     
             const messages: SendTransactionRequest["messages"] = [{
                 address: collectionAddress,
@@ -338,7 +367,7 @@ function BatchMint() {
             } else if (paymentType === "SC") {
                 messages.push({
                     address: jwAddress,
-                    amount: '50000000',
+                    amount: '55000000',
                     payload: jettonPayload
                 });
             }
@@ -431,8 +460,8 @@ function BatchMint() {
                     throw new Error("Файл не должен быть пустым.");
                 }
     
-                if (addresses.length > 200) {
-                    throw new Error("Максимальное количество адресов — 200.");
+                if (addresses.length > 70) {
+                    throw new Error("Максимальное количество адресов — 70.");
                 }
     
                 const isValid = addresses.every((address: string) => /^(EQ|UQ)/.test(address));
@@ -453,7 +482,7 @@ function BatchMint() {
     };
 
     const addNFT = () => {
-        if (nfts.length < 20) {
+        if (nfts.length < 35) {
             setNfts([...nfts, { name: "", image: "", description: "", content_url: "", attributes: [{ trait_type: "", value: "" }] }]);
         }
     };
@@ -513,8 +542,8 @@ function BatchMint() {
                 return;
             }
             
-            if (walletAddresses.length > 200) {
-                alert("The number of wallet addresses cannot exceed 200.");
+            if (walletAddresses.length > 70) {
+                alert("The number of wallet addresses cannot exceed 70.");
                 return;
             }
     
@@ -601,6 +630,7 @@ function BatchMint() {
             <BackButton />
             {nfts.map((nft, nftIndex) => (
                 <div key={nftIndex} className={styles.nftBlock}>
+                    <h2>Metadata #{nftIndex + 1}</h2>
                     <label>Name NFT:</label>
                     <input
                         type="text"
@@ -609,14 +639,14 @@ function BatchMint() {
                         required
                         className={nft.name.trim() ? "" : styles.errorInput}
                     />
-
+    
                     <label>Description (Max 51 Words):</label>
                     <textarea
                         value={nft.description}
                         onChange={(e) => updateNFT(nftIndex, "description", e.target.value)}
                         maxLength={51}
                     />
-
+    
                     <label>Image URL:</label>
                     <input
                         type="text"
@@ -626,7 +656,7 @@ function BatchMint() {
                         required
                         className={nft.image.trim() ? "" : styles.errorInput}
                     />
-
+    
                     <label>Video URL (Optional):</label>
                     <input
                         type="text"
@@ -634,7 +664,7 @@ function BatchMint() {
                         onChange={(e) => updateNFT(nftIndex, "content_url", e.target.value)}
                         placeholder="https://example.com/video.mp4"
                     />
-
+    
                     <label>Attributes:</label>
                     {nft.attributes.map((attr, attrIndex) => (
                         <div key={attrIndex} className={styles.attributeBlock}>
@@ -652,8 +682,8 @@ function BatchMint() {
                             />
                         </div>
                     ))}
-
-                    {nft.attributes.length < 20 && (
+    
+                    {nft.attributes.length < 10 && (
                         <button onClick={() => addAttribute(nftIndex)}>Add Attribute</button>
                     )}
                     {nft.attributes.length > 1 && (
@@ -661,40 +691,55 @@ function BatchMint() {
                     )}
                 </div>
             ))}
-
-            {nfts.length < 20 && <button onClick={addNFT}>Add Metadata</button>}
+    
+            {nfts.length < 35 && <button onClick={addNFT}>Add Metadata</button>}
             {nfts.length > 1 && <button className={styles.removeButton} onClick={removeNFT}>Remove Last Metadata</button>}
-
+    
             <div className={styles.fileUpload}>
                 <label className={styles.fileLabel}>
                     <input type="file" accept=".xlsx" onChange={handleFileUpload} />
-                    File with Addresses (.xlsx)
+                    File with Addresses (.xlsx) 70 max
                 </label>
                 {fileError && <p className={styles.errorText}>{fileError}</p>}
                 {addressCount > 0 && <p className={styles.successText}>Addresses Found: {addressCount}</p>}
             </div>
-
+    
             <label>Collection Address:</label>
             <input
                 type="text"
                 value={collectionAddress}
                 onChange={(e) => setCollectionAddress(e.target.value)}
             />
-
+    
             <label>Type of NFT:</label>
-                <select className={styles.customSelect} value={nftType} onChange={(e) => setNftType(e.target.value)}>
-                    <option value="NFT">NFT</option>
-                    <option value="SBT">SBT</option>
-                </select>
-
+            <select className={styles.customSelect} value={nftType} onChange={(e) => setNftType(e.target.value)}>
+                <option value="NFT">NFT</option>
+                <option value="SBT">SBT</option>
+            </select>
+    
             <label>Pay Fees In:</label>
             <select className={styles.customSelect} value={paymentType} onChange={(e) => setPaymentType(e.target.value)}>
                 <option value="TON">TON</option>
                 <option value="SC">SC</option>
             </select>
-
-            <p className={styles.disc}>Please make sure to select the appropriate NFT type for minting that corresponds to your collection. For example, if your collection is intended for regular NFTs, you will not be able to mint SBTs (Soulbound Tokens). Minting the wrong type may result in a loss of funds, so choose carefully. Metadata is distributed randomly.</p>
-
+    
+            <label>Metadata Distribution:</label>
+            <select 
+                className={styles.customSelect} 
+                value={metadataDistribution} 
+                onChange={(e) => setMetadataDistribution(e.target.value)}
+            >
+                <option value="random">Random</option>
+                <option value="sequential">Sequential</option>
+            </select>
+    
+            <p className={styles.disc}>
+                Please make sure to select the appropriate NFT type for minting that corresponds to your collection. 
+                For example, if your collection is intended for regular NFTs, you will not be able to mint SBTs (Soulbound Tokens). 
+                Minting the wrong type may result in a loss of funds, so choose carefully. 
+                Metadata can be distributed either randomly or sequentially based on your selection.
+            </p>
+            
             <MainButton
                 text={uploading ? "Uploading..." : "Mint Batch NFT"} 
                 onClick={generateJSON}
