@@ -16,7 +16,7 @@ function InTg() {
     const [, setScBalance] = useState(null);
 
     useEffect(() => {
-        const tonUrl = 'https://cache.tonapi.io/imgproxy/bc7sg6Xi4-cfUwK-er2CR-6CUnMql9nFQwMVU4IeYNA/rs:fill:200:200:1/g:no/aHR0cHM6Ly9jYWNoZS50b25hcGkuaW8vaW1ncHJveHkvU0Jxb19Jd2N0VUdSSjI4WkNIRHk1U21CcU8yS1R2aEc4VTFSb0k1SVpIay9yczpmaWxsOjIwMDoyMDA6MS9nOm5vL2FIUjBjSE02THk5MGIyNHViM0puTDJsamIyNXpMMk4xYzNSdmJTOTBiMjVmYkc5bmJ5NXpkbWMud2VicA.webp';
+        const tonUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn';
         const scUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn/jettons/EQB9QBqniFI0jOmw3PU6v1v4LU3Sivm9yPXDDB9Qf7cXTDft?currencies=ton,usd,rub&supported_extensions=custom_payload';
 
         axios.all([axios.get(tonUrl), axios.get(scUrl)])
