@@ -17,6 +17,7 @@ interface Metadata {
     name?: string;
     description?: string;
     image?: string;
+    content_url?: string; 
     attributes?: Attribute[];
 }
 
@@ -576,6 +577,7 @@ function BatchMint() {
                 if (nft.name.trim()) metadata.name = nft.name;
                 if (nft.description.trim()) metadata.description = nft.description;
                 if (nft.image.trim()) metadata.image = nft.image;
+                if (nft.content_url.trim()) metadata.content_url = nft.content_url;
     
                 const attributes = nft.attributes.filter(attr => attr.trait_type.trim() && attr.value.trim());
                 if (attributes.length > 0) metadata.attributes = attributes;
