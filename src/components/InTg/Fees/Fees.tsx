@@ -7,7 +7,7 @@ function Fees() {
             <h1>Fees for Batch Mint</h1>
             <div className={styles.blocks}>
                 <div className={styles.priceBlock}>
-                    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fcryptologos.cc%2Ftoncoin&psig=AOvVaw2RIwjFvP9Ukj9ZeBFUkQJY&ust=1744227217520000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCODFt--WyYwDFQAAAAAdAAAAABAZ" alt="TON" />
+                    <img src="https://cache.tonapi.io/imgproxy/bc7sg6Xi4-cfUwK-er2CR-6CUnMql9nFQwMVU4IeYNA/rs:fill:200:200:1/g:no/aHR0cHM6Ly9jYWNoZS50b25hcGkuaW8vaW1ncHJveHkvU0Jxb19Jd2N0VUdSSjI4WkNIRHk1U21CcU8yS1R2aEc4VTFSb0k1SVpIay9yczpmaWxsOjIwMDoyMDA6MS9nOm5vL2FIUjBjSE02THk5MGIyNHViM0puTDJsamIyNXpMMk4xYzNSdmJTOTBiMjVmYkc5bmJ5NXpkbWMud2VicA.webp" alt="TON" />
                     <h2>0.01 Per NFT</h2>
                 </div>
                 <div className={styles.priceBlock}>
