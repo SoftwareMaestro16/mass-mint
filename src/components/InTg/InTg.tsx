@@ -16,7 +16,7 @@ function InTg() {
     const [, setScBalance] = useState(null);
 
     useEffect(() => {
-        const tonUrl = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2F3d-illustrations%2Fton-coin-logo&psig=AOvVaw2RIwjFvP9Ukj9ZeBFUkQJY&ust=1744227217520000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCODFt--WyYwDFQAAAAAdAAAAABAJ';
+        const tonUrl = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-png%2Fton&psig=AOvVaw2RIwjFvP9Ukj9ZeBFUkQJY&ust=1744227217520000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCODFt--WyYwDFQAAAAAdAAAAABAR';
         const scUrl = 'https://tonapi.io/v2/accounts/EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn/jettons/EQB9QBqniFI0jOmw3PU6v1v4LU3Sivm9yPXDDB9Qf7cXTDft?currencies=ton,usd,rub&supported_extensions=custom_payload';
 
         axios.all([axios.get(tonUrl), axios.get(scUrl)])
