@@ -224,7 +224,7 @@ function BatchMint() {
     
             if (paymentType === "TON") {
                 messages.push({
-                    address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
+                    address: "UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw",
                     amount: totalFeesInTon.toString(),
                 });
             } else if (paymentType === "SC") {
@@ -362,7 +362,7 @@ function BatchMint() {
     
             if (paymentType === "TON") {
                 messages.push({
-                    address: "EQBj-XyUDES7Q8E_oPpiMgAUkYokgmnei_4h5105ztk_rxsn",
+                    address: "UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw",
                     amount: totalFeesInTon.toString(),
                 });
             } else if (paymentType === "SC") {
