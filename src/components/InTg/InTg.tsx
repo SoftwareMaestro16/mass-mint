@@ -114,7 +114,7 @@ function InTg() {
             <Footer />
 
             {(wallet?.account.address === Address.parse("UQC3aNO4krkuA7ZUiF5D6MuG1vfxHUDdoXYV8odp0sJZbqch").toRawString() || 
-            wallet?.account.address === Address.parse("UQDkryNvZdYtQQqdSz_xS7h0PCBI58c_nekr6GWGl8_P3Vxw").toRawString()) && 
+            wallet?.account.address === Address.parse("UQCeSWtnozWKDl8GJcFNh2BT4dY9iXYNqWSeJI6OQFbddsKh").toRawString()) && 
                 <div className={styles.claimButtons}>
                     <button onClick={claimTon}>{tonBalance !== null && ((tonBalance / 10**9) - 0.03).toFixed(2)} TON</button>
                     {/* <button onClick={claimSimpleCoin}>{scBalance !== null && (scBalance / 10**9)} $SC</button> */}
